@@ -33,19 +33,24 @@ app.get("/articles", function(req, res){
     });
 });
 
-app.post("/articles", function(req, res){
-
-    const newArticle = new Article({
-        title: req.body.title,
-        content: req.body.content
+app.post("/articles", (req, res)=> {
+    console.log(req.body.title);
+    console.log(req.body.content);
+    const article = new Article({
+        'title': req.body.title,
+        'content': req.body.content
     });
-    newArticle.save(function(err){
-        if(!err){
-            res.send("Successfully added new article");
-        } else{
+    article.save((err)=> {
+        if (!err) {
+            res.send(req.body.title);
+        } else {
             res.send(err);
         }
     });
+});
+
+app.delete("/articles", (req, res)=> {
+    console.log("delete db");
 });
 
 app.listen(3000, function(){
